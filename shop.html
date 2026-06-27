@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин - RUSTCHEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: #0A0A10;
+            --primary-purple: #7C3AED;
+            --primary-purple-light: #8B5CF6;
+            --primary-orange: #D97736;
+            --text-white: #FFFFFF;
+            --text-gray: #9CA3AF;
+            --status-green: #22C55E;
+            --bg-card: rgba(20, 20, 30, 0.6);
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 16, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text-white);
+        }
+
+        nav a.active {
+            color: var(--primary-purple);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-outline {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--primary-purple);
+            border-radius: 6px;
+            color: var(--text-white);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light));
+            border: none;
+            border-radius: 6px;
+            color: var(--text-white);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* BACK SECTION */
+        .back-section {
+            padding-top: 120px;
+            padding-bottom: 40px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--primary-purple);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* PAGE TITLE */
+        .page-title {
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .page-title p {
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+
+        /* PRIVILEGES GRID */
+        .privileges-section {
+            padding-bottom: 100px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+
+        .privileges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .privilege-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privilege-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .privilege-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--primary-purple-light));
+        }
+
+        .privilege-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light));
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .privilege-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .privilege-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--primary-purple);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .privilege-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .privilege-desc {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            min-height: 40px;
+        }
+
+        .privilege-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+        }
+
+        .privilege-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light));
+            border: none;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .privilege-btn:hover {
+            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* KITS SECTION */
+        .kits-section {
+            padding: 60px 0;
+        }
+
+        .kits-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .kits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .kit-card {
+            background: linear-gradient(135deg, #1a0f0a, #2d1a10);
+            border: 1px solid rgba(217, 119, 54, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .kit-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(217, 119, 54, 0.5);
+            box-shadow: 0 20px 40px rgba(217, 119, 54, 0.2);
+        }
+
+        .kit-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .kit-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .kit-desc {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .kit-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        .kit-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary-orange), #c76a28);
+            border: none;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .kit-btn:hover {
+            box-shadow: 0 5px 20px rgba(217, 119, 54, 0.4);
+        }
+
+        /* Background crystals */
+        .bg-crystals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-crystal {
+            position: absolute;
+            opacity: 0.08;
+        }
+
+        .bg-crystal-1 {
+            width: 80px;
+            height: 140px;
+            left: 5%;
+            top: 20%;
+            background: linear-gradient(180deg, #7C3AED, #5B21B6);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        .bg-crystal-2 {
+            width: 60px;
+            height: 100px;
+            right: 10%;
+            top: 40%;
+            background: linear-gradient(180deg, #D97706, #B45309);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        .bg-crystal-3 {
+            width: 50px;
+            height: 85px;
+            left: 15%;
+            bottom: 20%;
+            background: linear-gradient(180deg, #3B82F6, #1D4ED8);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .privileges-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .kits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background crystals -->
+    <div class="bg-crystals">
+        <div class="bg-crystal bg-crystal-1"></div>
+        <div class="bg-crystal bg-crystal-2"></div>
+        <div class="bg-crystal bg-crystal-3"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2L38 34H2L20 2Z" stroke="#7C3AED" stroke-width="2" fill="none"/>
+                        <path d="M20 14V26M16 22H24M15 30H25" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="20" cy="12" r="3" fill="#7C3AED" opacity="0.5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">RUSTCHEM</span>
+            </a>
+            
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="index.html#servers">Серверы</a>
+                <a href="shop.html" class="active">Магазин</a>
+                <a href="#">Правила</a>
+            </nav>
+            
+            <div class="header-buttons">
+                <a href="#" class="btn-outline">Войти</a>
+                <a href="#" class="btn-primary">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div class="back-section">
+            <a href="index.html" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Вернуться на главную
+            </a>
+        </div>
+
+        <div class="page-title">
+            <h1>Магазин привилегий</h1>
+            <p>Улучшите свой игровой опыт с нашими привилегиями</p>
+        </div>
+
+        <div class="privileges-section">
+            <h2 class="section-subtitle">Привилегии</h2>
+            
+            <div class="privileges-grid">
+                <!-- VIP -->
+                <div class="privilege-card">
+                    <span class="privilege-badge">Популярное</span>
+                    <div class="privilege-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="privilege-name">VIP</h3>
+                    <p class="privilege-desc">Базовый набор привилегий для комфортной игры</p>
+                    <div class="privilege-price">149 ₽</div>
+                    <button class="privilege-btn">Купить</button>
+                </div>
+
+                <!-- Premium -->
+                <div class="privilege-card">
+                    <span class="privilege-badge">Рекомендуем</span>
+                    <div class="privilege-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="privilege-name">Premium</h3>
+                    <p class="privilege-desc">Расширенные возможности и уникальные бонусы</p>
+                    <div class="privilege-price">299 ₽</div>
+                    <button class="privilege-btn">Купить</button>
+                </div>
+
+                <!-- Legend -->
+                <div class="privilege-card">
+                    <span class="privilege-badge">Премиум</span>
+                    <div class="privilege-icon">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="12" cy="8" r="6"/>
+                            <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                        </svg>
+                    </div>
+                    <h3 class="privilege-name">Legend</h3>
+                    <p class="privilege-desc">Максимальные возможности и эксклюзивный контент</p>
+                    <div class="privilege-price">499 ₽</div>
+                    <button class="privilege-btn">Купить</button>
+                </div>
+
+                <!-- Ultimate -->
+                <div class="privilege-card">
+                    <span class="privilege-badge">Эксклюзив</span>
+                    <div class="privilege-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M12 22V12"/>
+                            <path d="M20 12v5"/>
+                            <path d="M4 12v5"/>
+                        </svg>
+                    </div>
+                    <h3 class="privilege-name">Ultimate</h3>
+                    <p class="privilege-desc">Все возможности + приоритетная поддержка</p>
+                    <div class="privilege-price">799 ₽</div>
+                    <button class="privilege-btn">Купить</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="kits-section">
+            <h2>Наборы и кейсы</h2>
+            
+            <div class="kits-grid">
+                <!-- Starter Pack -->
+                <div class="kit-card">
+                    <div class="kit-icon">📦</div>
+                    <h3 class="kit-name">Стартовый набор</h3>
+                    <p class="kit-desc">Всё необходимое для начала игры</p>
+                    <div class="kit-price">99 ₽</div>
+                    <button class="kit-btn">Купить</button>
+                </div>
+
+                <!-- Resources -->
+                <div class="kit-card">
+                    <div class="kit-icon">💎</div>
+                    <h3 class="kit-name">Мешки с ресурсами</h3>
+                    <p class="kit-desc">Большое количество ресурсов</p>
+                    <div class="kit-price">199 ₽</div>
+                    <button class="kit-btn">Купить</button>
+                </div>
+
+                <!-- Mystery Case -->
+                <div class="kit-card">
+                    <div class="kit-icon">🎁</div>
+                    <h3 class="kit-name">Мистический кейс</h3>
+                    <p class="kit-desc">Шанс получить редкие предметы</p>
+                    <div class="kit-price">49 ₽</div>
+                    <button class="kit-btn">Купить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
