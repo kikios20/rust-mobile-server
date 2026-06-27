@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все серверы - RUSTCHEM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-main: #0A0A10;
+            --primary-purple: #7C3AED;
+            --primary-purple-light: #8B5CF6;
+            --text-white: #FFFFFF;
+            --text-gray: #9CA3AF;
+            --status-green: #22C55E;
+            --bg-card: rgba(20, 20, 30, 0.6);
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 16, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-white);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text-white);
+        }
+
+        nav a.active {
+            color: var(--primary-purple);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-outline {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--primary-purple);
+            border-radius: 6px;
+            color: var(--text-white);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light));
+            border: none;
+            border-radius: 6px;
+            color: var(--text-white);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* BACK BUTTON */
+        .back-section {
+            padding-top: 120px;
+            padding-bottom: 40px;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--primary-purple);
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* PAGE TITLE */
+        .page-title {
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .page-title p {
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+
+        /* SERVERS GRID */
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            padding-bottom: 100px;
+        }
+
+        .server-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .server-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .server-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), transparent, rgba(124, 58, 237, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .server-card:hover::before {
+            opacity: 1;
+        }
+
+        .server-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .server-card:hover .server-card-bg {
+            transform: scale(1.05);
+        }
+
+        .server-card-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(10, 10, 16, 0.95), transparent);
+        }
+
+        .server-card-1 .server-card-bg {
+            background: linear-gradient(135deg, #1a0a2e, #2d1b4e);
+        }
+
+        .server-card-2 .server-card-bg {
+            background: linear-gradient(135deg, #2d1b1b, #4a2020);
+        }
+
+        .server-card-3 .server-card-bg {
+            background: linear-gradient(135deg, #0a1a2e, #1a2d4a);
+        }
+
+        .server-card-4 .server-card-bg {
+            background: linear-gradient(135deg, #1a1a0a, #3d3d20);
+        }
+
+        .server-card-5 .server-card-bg {
+            background: linear-gradient(135deg, #0a2e1a, #1a4a2d);
+        }
+
+        .server-card-6 .server-card-bg {
+            background: linear-gradient(135deg, #2e0a1a, #4a1a2d);
+        }
+
+        .server-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.5);
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-white);
+            z-index: 2;
+        }
+
+        .server-content {
+            position: relative;
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .server-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+
+        .server-details {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 16px;
+        }
+
+        .server-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .server-online {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--status-green);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .server-online::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--status-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--status-green);
+        }
+
+        .server-slots {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .server-connect-btn {
+            width: 100%;
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: var(--primary-purple);
+            border: none;
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .server-connect-btn:hover {
+            background: var(--primary-purple-light);
+            box-shadow: 0 5px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Background crystals */
+        .bg-crystals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-crystal {
+            position: absolute;
+            opacity: 0.1;
+        }
+
+        .bg-crystal-1 {
+            width: 60px;
+            height: 100px;
+            left: 5%;
+            top: 20%;
+            background: linear-gradient(180deg, #7C3AED, #5B21B6);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        .bg-crystal-2 {
+            width: 50px;
+            height: 85px;
+            right: 10%;
+            top: 40%;
+            background: linear-gradient(180deg, #3B82F6, #1D4ED8);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        .bg-crystal-3 {
+            width: 70px;
+            height: 120px;
+            left: 15%;
+            bottom: 20%;
+            background: linear-gradient(180deg, #D97706, #B45309);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        .bg-crystal-4 {
+            width: 45px;
+            height: 75px;
+            right: 20%;
+            bottom: 30%;
+            background: linear-gradient(180deg, #EC4899, #BE185D);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .servers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background crystals -->
+    <div class="bg-crystals">
+        <div class="bg-crystal bg-crystal-1"></div>
+        <div class="bg-crystal bg-crystal-2"></div>
+        <div class="bg-crystal bg-crystal-3"></div>
+        <div class="bg-crystal bg-crystal-4"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2L38 34H2L20 2Z" stroke="#7C3AED" stroke-width="2" fill="none"/>
+                        <path d="M20 14V26M16 22H24M15 30H25" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="20" cy="12" r="3" fill="#7C3AED" opacity="0.5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">RUSTCHEM</span>
+            </a>
+            
+            <nav>
+                <a href="index.html">Главная</a>
+                <a href="index.html#servers" class="active">Серверы</a>
+                <a href="#">Магазин</a>
+                <a href="#">Правила</a>
+            </nav>
+            
+            <div class="header-buttons">
+                <a href="#" class="btn-outline">Войти</a>
+                <a href="#" class="btn-primary">Регистрация</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div class="back-section">
+            <a href="index.html" class="back-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Вернуться на главную
+            </a>
+        </div>
+
+        <div class="page-title">
+            <h1>Все серверы</h1>
+            <p>Выберите подходящий сервер для игры</p>
+        </div>
+
+        <div class="servers-grid">
+            <!-- Server 1 -->
+            <div class="server-card server-card-1">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 200</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | MAX 2</div>
+                    <div class="server-details">Procedural Map • 3 дня назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">187/200</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('max2.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Server 2 -->
+            <div class="server-card server-card-2">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 200</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | MAX 3</div>
+                    <div class="server-details">Procedural Map • 5 дней назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">156/200</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('max3.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Server 3 -->
+            <div class="server-card server-card-3">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 200</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | MAX 4</div>
+                    <div class="server-details">Procedural Map • 1 день назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">198/200</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('max4.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Server 4 -->
+            <div class="server-card server-card-4">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 50</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | VANILLA</div>
+                    <div class="server-details">Procedural Map • 7 дней назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">42/50</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('vanilla.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Server 5 -->
+            <div class="server-card server-card-5">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 100</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | MODDED</div>
+                    <div class="server-details">Procedural Map • 2 дня назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">89/100</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('modded.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+
+            <!-- Server 6 -->
+            <div class="server-card server-card-6">
+                <div class="server-card-bg"></div>
+                <span class="server-badge">MAX 150</span>
+                <div class="server-content">
+                    <div class="server-name">RUSTCHEM | X10</div>
+                    <div class="server-details">Procedural Map • 4 дня назад</div>
+                    <div class="server-footer">
+                        <span class="server-online">Online</span>
+                        <span class="server-slots">145/150</span>
+                    </div>
+                    <button class="server-connect-btn" onclick="copyIP('x10.rustchem.ru')">Подключиться</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function copyIP(ip) {
+            navigator.clipboard.writeText(ip).then(() => {
+                showNotification('✓ IP скопирован: ' + ip);
+            }).catch(() => {
+                showNotification('✗ Ошибка копирования');
+            });
+        }
+
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = message;
+            notif.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);padding:15px 30px;background:linear-gradient(135deg,#7C3AED,#6D28D9);color:white;border-radius:8px;font-weight:600;z-index:9999;animation:fadeIn 0.3s ease';
+            
+            const style = document.createElement('style');
+            style.textContent = '@keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}';
+            document.head.appendChild(style);
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => notif.remove(), 300);
+            }, 2000);
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="index.html#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href').replace('index.html', ''));
+                if (target) {
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
