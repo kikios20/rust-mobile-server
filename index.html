@@ -12,6 +12,19 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+
+        button {
+            transition: all 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
         }
 
         :root {
@@ -501,6 +514,18 @@
         .servers-section {
             padding: 100px 0;
             background: var(--bg-main);
+            position: relative;
+        }
+
+        .servers-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, rgba(124, 58, 237, 0.03), transparent);
+            pointer-events: none;
         }
 
         .section-header {
@@ -565,6 +590,35 @@
         .server-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .server-card:hover .server-card-bg {
+            transform: scale(1.05);
+            transition: transform 0.5s ease;
+        }
+
+        .server-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.5), transparent, rgba(124, 58, 237, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .server-card:hover::before {
+            opacity: 1;
         }
 
         .server-card-bg {
@@ -685,6 +739,29 @@
         .features-section {
             padding: 100px 0;
             background: linear-gradient(180deg, var(--bg-main), #0d0d18);
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, rgba(124, 58, 237, 0.02));
+            pointer-events: none;
+        }
+
+        .features-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, rgba(217, 119, 54, 0.02), transparent);
+            pointer-events: none;
         }
 
         .features-grid {
@@ -719,6 +796,18 @@
         .feature-card:hover {
             transform: translateY(-5px);
             border-color: rgba(124, 58, 237, 0.3);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15);
+        }
+
+        .feature-card:hover .feature-icon svg {
+            filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.8));
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            transition: opacity 0.3s;
         }
 
         .feature-icon {
@@ -769,6 +858,7 @@
             align-items: center;
             justify-content: space-between;
             overflow: hidden;
+            border: 1px solid rgba(217, 119, 54, 0.1);
         }
 
         .store-content::before {
@@ -780,6 +870,24 @@
             bottom: 0;
             background: radial-gradient(ellipse at 80% 50%, rgba(217, 119, 54, 0.2), transparent 60%);
             pointer-events: none;
+        }
+
+        .store-content::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(217, 119, 54, 0.3), transparent, rgba(217, 119, 54, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .store-content:hover::after {
+            opacity: 1;
         }
 
         .store-text {
@@ -916,6 +1024,8 @@
         .social-btn:hover {
             border-color: var(--primary-purple);
             color: var(--primary-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
         }
 
         .social-btn svg {
