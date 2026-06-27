@@ -179,7 +179,130 @@
             pointer-events: none;
         }
 
-        /* Crystal decorations */
+        /* Background crystals */
+        .bg-crystals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-crystal {
+            position: absolute;
+            opacity: 0.15;
+            animation: floatCrystal 15s ease-in-out infinite;
+        }
+
+        @keyframes floatCrystal {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .bg-crystal-1 {
+            width: 80px;
+            height: 140px;
+            left: 5%;
+            top: 20%;
+            background: linear-gradient(180deg, #7C3AED, #5B21B6);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: 0s;
+        }
+
+        .bg-crystal-2 {
+            width: 60px;
+            height: 100px;
+            left: 15%;
+            top: 60%;
+            background: linear-gradient(180deg, #3B82F6, #1D4ED8);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -3s;
+        }
+
+        .bg-crystal-3 {
+            width: 100px;
+            height: 180px;
+            left: 8%;
+            top: 35%;
+            background: linear-gradient(180deg, #D97706, #B45309);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -6s;
+        }
+
+        .bg-crystal-4 {
+            width: 50px;
+            height: 80px;
+            left: 20%;
+            top: 15%;
+            background: linear-gradient(180deg, #8B5CF6, #6D28D9);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -9s;
+        }
+
+        .bg-crystal-5 {
+            width: 70px;
+            height: 120px;
+            left: 12%;
+            top: 75%;
+            background: linear-gradient(180deg, #6366F1, #4338CA);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -12s;
+        }
+
+        .bg-crystal-6 {
+            width: 90px;
+            height: 160px;
+            right: 3%;
+            top: 10%;
+            background: linear-gradient(180deg, #7C3AED, #5B21B6);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -2s;
+        }
+
+        .bg-crystal-7 {
+            width: 65px;
+            height: 110px;
+            right: 8%;
+            top: 40%;
+            background: linear-gradient(180deg, #EC4899, #BE185D);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -5s;
+        }
+
+        .bg-crystal-8 {
+            width: 55px;
+            height: 95px;
+            right: 15%;
+            top: 65%;
+            background: linear-gradient(180deg, #06B6D4, #0891B2);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -8s;
+        }
+
+        .bg-crystal-9 {
+            width: 45px;
+            height: 75px;
+            right: 5%;
+            top: 80%;
+            background: linear-gradient(180deg, #F59E0B, #D97706);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -11s;
+        }
+
+        .bg-crystal-10 {
+            width: 40px;
+            height: 65px;
+            left: 25%;
+            top: 85%;
+            background: linear-gradient(180deg, #A78BFA, #7C3AED);
+            clip-path: polygon(50% 0%, 85% 30%, 100% 70%, 50% 100%, 15% 70%, 0% 30%);
+            animation-delay: -14s;
+        }
+
+        /* Hero crystals */
         .crystals {
             position: absolute;
             right: 10%;
@@ -188,6 +311,7 @@
             width: 500px;
             height: 500px;
             pointer-events: none;
+            z-index: 5;
         }
 
         .crystal {
@@ -205,6 +329,12 @@
             clip-path: polygon(50% 0%, 85% 25%, 100% 75%, 50% 100%, 15% 75%, 0% 25%);
             filter: blur(1px);
             box-shadow: 0 0 60px rgba(124, 58, 237, 0.5);
+            animation: crystalGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes crystalGlow {
+            0%, 100% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.5); }
+            50% { box-shadow: 0 0 80px rgba(124, 58, 237, 0.7); }
         }
 
         .crystal-2 {
@@ -216,6 +346,13 @@
             clip-path: polygon(50% 0%, 85% 25%, 100% 75%, 50% 100%, 15% 75%, 0% 25%);
             filter: blur(2px);
             box-shadow: 0 0 40px rgba(124, 58, 237, 0.4);
+            animation: crystalGlow2 5s ease-in-out infinite;
+            animation-delay: -1s;
+        }
+
+        @keyframes crystalGlow2 {
+            0%, 100% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(139, 92, 246, 0.6); }
         }
 
         .crystal-3 {
@@ -227,6 +364,31 @@
             clip-path: polygon(50% 0%, 85% 25%, 100% 75%, 50% 100%, 15% 75%, 0% 25%);
             filter: blur(1px);
             box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+            animation: crystalGlow3 6s ease-in-out infinite;
+            animation-delay: -2s;
+        }
+
+        @keyframes crystalGlow3 {
+            0%, 100% { box-shadow: 0 0 30px rgba(167, 139, 250, 0.3); }
+            50% { box-shadow: 0 0 50px rgba(167, 139, 250, 0.5); }
+        }
+
+        .crystal-4 {
+            width: 120px;
+            height: 200px;
+            right: 180px;
+            top: 15%;
+            background: linear-gradient(135deg, #6366F1, #4F46E5);
+            clip-path: polygon(50% 0%, 85% 25%, 100% 75%, 50% 100%, 15% 75%, 0% 25%);
+            filter: blur(3px);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.3);
+            animation: crystalGlow4 7s ease-in-out infinite;
+            animation-delay: -3s;
+        }
+
+        @keyframes crystalGlow4 {
+            0%, 100% { box-shadow: 0 0 50px rgba(99, 102, 241, 0.3); }
+            50% { box-shadow: 0 0 70px rgba(99, 102, 241, 0.5); }
         }
 
         .particles {
@@ -939,6 +1101,20 @@
 
     <!-- HERO -->
     <section class="hero">
+        <!-- Background crystals -->
+        <div class="bg-crystals">
+            <div class="bg-crystal bg-crystal-1"></div>
+            <div class="bg-crystal bg-crystal-2"></div>
+            <div class="bg-crystal bg-crystal-3"></div>
+            <div class="bg-crystal bg-crystal-4"></div>
+            <div class="bg-crystal bg-crystal-5"></div>
+            <div class="bg-crystal bg-crystal-6"></div>
+            <div class="bg-crystal bg-crystal-7"></div>
+            <div class="bg-crystal bg-crystal-8"></div>
+            <div class="bg-crystal bg-crystal-9"></div>
+            <div class="bg-crystal bg-crystal-10"></div>
+        </div>
+
         <div class="particles">
             <div class="particle" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
             <div class="particle" style="top: 40%; left: 20%; animation-delay: 1s;"></div>
@@ -951,6 +1127,7 @@
             <div class="crystal crystal-1"></div>
             <div class="crystal crystal-2"></div>
             <div class="crystal crystal-3"></div>
+            <div class="crystal crystal-4"></div>
         </div>
         
         <div class="container">
