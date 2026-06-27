@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rust Mobile Servers - Проект серверов</title>
+    <title>[ НАЗВАНИЕ ПРОЕКТА ] - Серверы</title>
     <style>
         * {
             margin: 0;
@@ -12,21 +12,38 @@
         }
 
         :root {
-            --bg-dark: #0a0e17;
-            --bg-secondary: #1a1f2e;
+            --bg-primary: #0f1115;
+            --bg-secondary: rgba(20, 24, 31, 0.7);
+            --bg-tertiary: rgba(25, 30, 40, 0.5);
             --accent: #00ff66;
-            --accent-light: #33ff99;
+            --accent-muted: #008c3a;
             --text-primary: #ffffff;
-            --text-secondary: #b0b8c4;
-            --border: #2a3544;
+            --text-secondary: #808080;
+            --border-light: rgba(128, 128, 128, 0.2);
+            --border-dark: rgba(128, 128, 128, 0.4);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #0f1419 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-primary);
             color: var(--text-primary);
+            line-height: 1.5;
             overflow-x: hidden;
-            line-height: 1.6;
+        }
+
+        /* ТОПОГРАФИЧЕСКИЙ ФОН */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><defs><filter id="blur"><feGaussianBlur in="SourceGraphic" stdDeviation="2"/></filter></defs><path d="M0,50 Q100,40 200,50 T400,50" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,100 Q100,90 200,100 T400,100" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,150 Q100,140 200,150 T400,150" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,200 Q100,190 200,200 T400,200" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,250 Q100,240 200,250 T400,250" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,300 Q100,290 200,300 T400,300" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/><path d="M0,350 Q100,340 200,350 T400,350" stroke="rgba(100,100,100,0.03)" stroke-width="1" fill="none" filter="url(%23blur)"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* HEADER */
@@ -34,23 +51,11 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 14, 23, 0.95);
+            background: var(--bg-secondary);
             backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 1px solid var(--border-dark);
             z-index: 1000;
-            padding: 1rem 2rem;
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            padding: 1.2rem 2rem;
         }
 
         .header-content {
@@ -66,929 +71,406 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { text-shadow: 0 0 10px var(--accent); }
-            50% { text-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent); }
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .logo-icon {
-            width: 35px;
-            height: 35px;
-            background: var(--accent);
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            animation: spin 3s linear infinite;
+            font-size: 0.9rem;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        nav {
+        .center-status {
             display: flex;
-            gap: 2.5rem;
-            flex: 1;
-        }
-
-        nav a {
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            position: relative;
-            transition: color 0.3s ease;
-            cursor: pointer;
         }
 
-        nav a:hover,
-        nav a.active {
-            color: var(--accent);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after,
-        nav a.active::after {
-            width: 100%;
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            opacity: 0.5;
         }
 
         .header-right {
             display: flex;
-            align-items: center;
             gap: 1.5rem;
         }
 
-        .online-status {
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 102, 0.1);
-            border: 1px solid var(--accent);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            animation: pulse 2s ease-in-out infinite;
+            justify-content: center;
         }
 
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(0, 255, 102, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(0, 255, 102, 0.6); }
+        .icon-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: blink 1s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .btn-login {
-            padding: 0.7rem 1.5rem;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-        }
-
-        .btn-login:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 255, 102, 0.3);
-        }
-
-        /* MAIN CONTENT */
+        /* MAIN */
         main {
             margin-top: 70px;
-            min-height: 100vh;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            padding: 0;
         }
 
         /* HERO SECTION */
         .hero {
             padding: 4rem 2rem;
             text-align: center;
-            background: linear-gradient(135deg, rgba(0, 255, 102, 0.05) 0%, rgba(0, 255, 102, 0.02) 100%);
-            border-bottom: 2px solid var(--accent);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 255, 102, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(30px); }
+            border-bottom: 1px solid var(--border-light);
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideInDown 0.8s ease-out;
-            text-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
-        }
-
-        @keyframes slideInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: slideInUp 0.8s ease-out 0.2s both;
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .how-to-play {
-            background: var(--bg-secondary);
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            animation: slideInUp 0.8s ease-out 0.4s both;
-        }
-
-        .how-to-play h3 {
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .step {
-            padding: 1.5rem;
-            background: rgba(0, 255, 102, 0.05);
-            border-left: 4px solid var(--accent);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.1), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        .step:hover {
-            background: rgba(0, 255, 102, 0.1);
-            transform: translateX(10px);
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            margin-bottom: 1rem;
-        }
-
-        .step h4 {
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .btn-copy-ip {
-            padding: 1rem 2rem;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-copy-ip:hover {
-            background: var(--accent-light);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
-        }
-
-        .btn-copy-ip:active {
-            transform: scale(0.98);
-        }
-
-        /* SERVERS SECTION */
-        .servers-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .section-title {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 300;
             letter-spacing: 2px;
         }
 
-        .section-subtitle {
+        .hero p {
+            font-size: 0.95rem;
             color: var(--text-secondary);
             margin-bottom: 2rem;
-            font-size: 1rem;
+            line-height: 1.7;
         }
 
-        .servers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .server-card {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .btn-primary {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
-            animation: cardSlide 0.6s ease-out backwards;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .server-card:nth-child(1) { animation-delay: 0.1s; }
-        .server-card:nth-child(2) { animation-delay: 0.2s; }
-        .server-card:nth-child(3) { animation-delay: 0.3s; }
-        .server-card:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes cardSlide {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-primary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
         }
 
-        .server-card::before {
+        /* TIMELINE */
+        .timeline-section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .timeline-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline::before {
             content: '';
             position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             top: 0;
-            left: 0;
-            right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 255, 102, 0.1) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            width: 1px;
+            background: var(--border-dark);
         }
 
-        .server-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
-            transform: translateY(-10px);
-        }
-
-        .server-card:hover::before {
-            opacity: 1;
-        }
-
-        .server-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
+        .timeline-item {
+            margin-bottom: 2rem;
             position: relative;
-            z-index: 1;
+            display: flex;
+            justify-content: flex-start;
+            gap: 2rem;
         }
 
-        .server-number {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            background: var(--border);
-            padding: 0.3rem 0.8rem;
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            z-index: 10;
+        }
+
+        .timeline-content {
+            width: calc(50% - 1rem);
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
             border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* SERVERS SECTION */
+        .servers-section {
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .servers-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .servers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .server-plank {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .server-plank:hover {
+            border-color: var(--accent);
+            background: var(--bg-tertiary);
+        }
+
+        .server-format {
+            min-width: 80px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
         }
 
         .server-rate {
-            background: var(--accent);
-            color: var(--bg-dark);
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .server-symbol {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--accent);
-            margin: 1rem 0;
-            text-align: center;
-            animation: symbolPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes symbolPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .server-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            color: var(--text-primary);
-            text-align: center;
-            text-transform: uppercase;
-        }
-
-        .server-online {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
             background: rgba(0, 255, 102, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .online-bar {
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .online-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
-            width: 0%;
-            animation: fillBar 1s ease-out;
-        }
-
-        @keyframes fillBar {
-            from { width: 0%; }
-            to { width: var(--fill-width); }
-        }
-
-        .online-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-align: center;
-        }
-
-        .copy-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(0, 255, 102, 0.1);
-            border: 2px solid var(--accent);
+            border: 1px solid var(--border-light);
+            border-radius: 2px;
+            font-size: 0.75rem;
             color: var(--accent);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            margin-left: 0.5rem;
         }
 
-        .copy-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-        }
-
-        /* WIPES & STATS SECTION */
-        .info-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .info-block {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            animation: slideInUp 0.8s ease-out;
-        }
-
-        .info-block:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.2);
-        }
-
-        .info-block h3 {
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .wipe-item,
-        .stat-row {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .wipe-item:last-child,
-        .stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .wipe-item:hover,
-        .stat-row:hover {
-            background: rgba(0, 255, 102, 0.05);
-            padding-left: 1.5rem;
-        }
-
-        .wipe-server {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .wipe-date {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .wipe-type {
-            background: var(--accent);
-            color: var(--bg-dark);
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .stat-rank {
-            background: var(--accent);
-            color: var(--bg-dark);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-weight: 900;
-            flex-shrink: 0;
-        }
-
-        .stat-player {
+        .server-progress {
             flex: 1;
-            margin: 0 1rem;
-        }
-
-        .stat-nick {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .stat-hours {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .stat-kills {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        /* SHOP SECTION */
-        .shop-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .shop-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--border);
-            border: 2px solid transparent;
-            color: var(--text-secondary);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            color: var(--bg-dark);
-            border-color: var(--accent);
-        }
-
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            animation: cardSlide 0.6s ease-out backwards;
-        }
-
-        .product-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.3);
-        }
-
-        .product-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            border-radius: 12px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .product-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            min-height: 2.7rem;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--accent);
-            margin: 1rem 0;
-        }
-
-        .buy-btn {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(0, 255, 102, 0.1);
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        .buy-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
-        }
-
-        /* RULES SECTION */
-        .rules-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .rules-list {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 0.4rem;
         }
 
-        .rule-item {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+        .progress-bar {
+            height: 3px;
+            background: var(--border-dark);
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .rule-item:hover {
-            background: rgba(0, 255, 102, 0.05);
-            transform: translateX(10px);
-        }
-
-        .rule-number {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
+        .progress-fill {
+            height: 100%;
             background: var(--accent);
-            color: var(--bg-dark);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
-            font-weight: 900;
-            margin-right: 1rem;
+            width: 0%;
         }
 
-        .rule-text {
+        .progress-text {
+            font-size: 0.75rem;
             color: var(--text-secondary);
-            line-height: 1.8;
         }
 
-        /* SUPPORT SECTION */
-        .support-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .support-form {
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            background: var(--bg-dark);
-            border: 2px solid var(--border);
-            color: var(--text-primary);
-            border-radius: 8px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--accent);
-            outline: none;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
+        .copy-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            color: var(--accent);
+            transition: all 0.3s;
+            font-size: 1.1rem;
         }
 
-        .submit-btn:hover {
-            background: var(--accent-light);
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
+        .copy-icon:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
         }
 
         /* FOOTER */
         footer {
             background: var(--bg-secondary);
-            border-top: 2px solid var(--accent);
-            padding: 3rem 2rem;
-            margin-top: 5rem;
+            border-top: 1px solid var(--border-dark);
+            padding: 2rem;
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 2rem;
-            margin-bottom: 2rem;
+            font-size: 0.85rem;
         }
 
-        .footer-section h4 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            text-transform: uppercase;
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
         }
 
-        .footer-section a,
-        .footer-section p {
+        .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            margin-bottom: 0.8rem;
-            transition: all 0.3s ease;
-            display: inline-block;
+            transition: color 0.3s;
         }
 
-        .footer-section a:hover {
+        .footer-links a:hover {
             color: var(--accent);
-            transform: translateX(5px);
         }
 
-        .footer-bottom {
-            border-top: 1px solid var(--border);
-            padding-top: 2rem;
-            text-align: center;
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-end;
+        }
+
+        .footer-legal a {
             color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        /* MOBILE RESPONSIVE */
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+
+        /* MOBILE */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
                 font-size: 1.8rem;
             }
 
-            nav {
-                display: none;
+            .timeline::before {
+                left: 10px;
             }
 
-            header {
-                padding: 1rem;
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                justify-content: center;
+                margin-left: 40px;
             }
 
-            .header-content {
+            .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 0;
+                transform: translateX(-50%);
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .server-plank {
+                flex-wrap: wrap;
                 gap: 1rem;
             }
 
-            .logo {
-                font-size: 1.2rem;
+            .server-format {
+                min-width: 100%;
             }
 
-            .info-section {
-                grid-template-columns: 1fr;
+            .server-progress {
+                width: 100%;
             }
 
-            .shop-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-legal {
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
             }
 
             header {
                 padding: 0.8rem 1rem;
             }
 
-            .hero {
-                padding: 2rem 1rem;
+            .header-content {
+                gap: 1rem;
             }
         }
 
@@ -998,15 +480,16 @@
             bottom: 2rem;
             right: 2rem;
             background: var(--accent);
-            color: var(--bg-dark);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            animation: slideInRight 0.3s ease-out;
+            color: var(--bg-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            animation: slideIn 0.3s ease-out;
             z-index: 2000;
         }
 
-        @keyframes slideInRight {
+        @keyframes slideIn {
             from {
                 opacity: 0;
                 transform: translateX(100px);
@@ -1023,353 +506,118 @@
     <header>
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">⚗️</div>
-                <span>RUST LABS</span>
+                <div class="logo-icon">□</div>
+                <span>[ НАЗВАНИЕ ПРОЕКТА ]</span>
             </div>
-            <nav>
-                <a class="nav-link active" data-section="home">Главная</a>
-                <a class="nav-link" data-section="shop">Магазин</a>
-                <a class="nav-link" data-section="rules">Правила</a>
-                <a class="nav-link" data-section="support">Поддержка</a>
-            </nav>
+            <div class="center-status">
+                <div class="status-dot"></div>
+                <span>Онлайн: 0</span>
+            </div>
             <div class="header-right">
-                <div class="online-status">
-                    <div class="online-dot"></div>
-                    <span>В сети: <strong id="online-count">247</strong> / 500</span>
-                </div>
-                <button class="btn-login" onclick="alert('Вход через Discord скоро будет доступен!')">Войти</button>
+                <button class="icon-btn" title="Меню">≡</button>
+                <button class="icon-btn" title="Профиль">👤</button>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main>
-        <!-- HOME SECTION -->
-        <section id="home" class="section active">
-            <!-- HERO -->
-            <div class="hero">
-                <div class="hero-content">
-                    <h1>⚗️ RUST LABS</h1>
-                    <p>Добро пожаловать на проект мобильных серверов Rust. Выбери интересующий тебя сектор, копируй IP и подключайся к игре уже сейчас!</p>
-                    
-                    <div class="how-to-play">
-                        <h3>🚀 Как начать играть</h3>
-                        <div class="steps">
-                            <div class="step">
-                                <div class="step-number">1</div>
-                                <h4>Скачай игру</h4>
-                                <p>Rust Mobile доступна в App Store и Google Play</p>
-                                <button class="btn-copy-ip" style="background: rgba(0,255,102,0.2); border: 2px solid var(--accent);">📥 Скачать</button>
-                            </div>
-                            <div class="step">
-                                <div class="step-number">2</div>
-                                <h4>Скопируй адрес</h4>
-                                <p>Выбери сервер ниже и нажми кнопку копирования</p>
-                                <button class="btn-copy-ip" onclick="copyIP()">📋 Скопировать IP</button>
-                            </div>
-                            <div class="step">
-                                <div class="step-number">3</div>
-                                <h4>Подключись</h4>
-                                <p>Введи IP в клиент игры и начни играть!</p>
-                            </div>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>[ ГЛАВНЫЙ СЛОГАН ПРОЕКТА ]</h1>
+                <p>[ Краткое описание тематики и особенностей сервера в 1-2 предложения ]</p>
+                <button class="btn-primary">[ СКАЧАТЬ КЛИЕНТ ]</button>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="timeline-section">
+            <div class="timeline-container">
+                <div class="timeline-title">[ ИНСТРУКЦИЯ ]</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            [ Текст первого шага для начала игры ]
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            [ Текст второго шага ]
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            [ Текст третьего шага ]
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- SERVERS -->
+        <!-- SERVERS -->
+        <section class="servers-section">
             <div class="servers-container">
-                <h2 class="section-title">🖥️ Серверы</h2>
-                <p class="section-subtitle">Выбери сервер по своему вкусу</p>
-                <div class="servers-grid">
-                    <div class="server-card">
-                        <div class="server-header">
-                            <div class="server-number">Сервер #1</div>
-                            <div class="server-rate">×2</div>
+                <div class="section-title">[ СЕРВЕРЫ ]</div>
+                <div class="servers-list">
+                    <div class="server-plank">
+                        <div class="server-format">
+                            [ ФОРМАТ ]
+                            <span class="server-rate">x0</span>
                         </div>
-                        <div class="server-symbol">Sl</div>
-                        <div class="server-name">Slavic Labs</div>
-                        <div class="server-online">
-                            <div class="online-bar"><div class="online-fill" style="--fill-width: 65%;"></div></div>
-                            <div class="online-text">65 / 100 игроков</div>
+                        <div class="server-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div class="progress-text">0 / 0</div>
                         </div>
-                        <button class="copy-btn" onclick="copyIP('sl.rustlabs.io:28015')">Скопировать IP</button>
+                        <button class="copy-icon" onclick="copyIP()">📋</button>
                     </div>
 
-                    <div class="server-card">
-                        <div class="server-header">
-                            <div class="server-number">Сервер #2</div>
-                            <div class="server-rate">×3</div>
+                    <div class="server-plank">
+                        <div class="server-format">
+                            [ ФОРМАТ ]
+                            <span class="server-rate">x0</span>
                         </div>
-                        <div class="server-symbol">Du</div>
-                        <div class="server-name">Dust Paradise</div>
-                        <div class="server-online">
-                            <div class="online-bar"><div class="online-fill" style="--fill-width: 82%;"></div></div>
-                            <div class="online-text">82 / 100 игроков</div>
+                        <div class="server-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div class="progress-text">0 / 0</div>
                         </div>
-                        <button class="copy-btn" onclick="copyIP('du.rustlabs.io:28015')">Скопировать IP</button>
+                        <button class="copy-icon" onclick="copyIP()">📋</button>
                     </div>
 
-                    <div class="server-card">
-                        <div class="server-header">
-                            <div class="server-number">Сервер #3</div>
-                            <div class="server-rate">×5</div>
+                    <div class="server-plank">
+                        <div class="server-format">
+                            [ ФОРМАТ ]
+                            <span class="server-rate">x0</span>
                         </div>
-                        <div class="server-symbol">Tr</div>
-                        <div class="server-name">Toxic Realm</div>
-                        <div class="server-online">
-                            <div class="online-bar"><div class="online-fill" style="--fill-width: 45%;"></div></div>
-                            <div class="online-text">45 / 100 игроков</div>
+                        <div class="server-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div class="progress-text">0 / 0</div>
                         </div>
-                        <button class="copy-btn" onclick="copyIP('tr.rustlabs.io:28015')">Скопировать IP</button>
+                        <button class="copy-icon" onclick="copyIP()">📋</button>
                     </div>
 
-                    <div class="server-card">
-                        <div class="server-header">
-                            <div class="server-number">Сервер #4</div>
-                            <div class="server-rate">×10</div>
+                    <div class="server-plank">
+                        <div class="server-format">
+                            [ ФОРМАТ ]
+                            <span class="server-rate">x0</span>
                         </div>
-                        <div class="server-symbol">Cr</div>
-                        <div class="server-name">Crazy Chaos</div>
-                        <div class="server-online">
-                            <div class="online-bar"><div class="online-fill" style="--fill-width: 92%;"></div></div>
-                            <div class="online-text">92 / 100 игроков</div>
+                        <div class="server-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <div class="progress-text">0 / 0</div>
                         </div>
-                        <button class="copy-btn" onclick="copyIP('cr.rustlabs.io:28015')">Скопировать IP</button>
+                        <button class="copy-icon" onclick="copyIP()">📋</button>
                     </div>
-                </div>
-            </div>
-
-            <!-- INFO SECTION -->
-            <div class="info-section">
-                <div class="info-block">
-                    <h3>📊 График Вайпов</h3>
-                    <div class="wipe-item">
-                        <div>
-                            <div class="wipe-server">Slavic Labs</div>
-                            <div class="wipe-date">27 июня 2024</div>
-                        </div>
-                        <div class="wipe-type">Карта</div>
-                    </div>
-                    <div class="wipe-item">
-                        <div>
-                            <div class="wipe-server">Dust Paradise</div>
-                            <div class="wipe-date">20 июня 2024</div>
-                        </div>
-                        <div class="wipe-type">Полный</div>
-                    </div>
-                    <div class="wipe-item">
-                        <div>
-                            <div class="wipe-server">Toxic Realm</div>
-                            <div class="wipe-date">15 июня 2024</div>
-                        </div>
-                        <div class="wipe-type">Чертежи</div>
-                    </div>
-                    <div class="wipe-item">
-                        <div>
-                            <div class="wipe-server">Crazy Chaos</div>
-                            <div class="wipe-date">10 июня 2024</div>
-                        </div>
-                        <div class="wipe-type">Карта</div>
-                    </div>
-                </div>
-
-                <div class="info-block">
-                    <h3>🏆 Топ Лаборатории</h3>
-                    <div class="stat-row">
-                        <div class="stat-rank">1</div>
-                        <div class="stat-player">
-                            <div class="stat-nick">ShadowHunter</div>
-                            <div class="stat-hours">245 часов</div>
-                        </div>
-                        <div class="stat-kills">1847 убийств</div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-rank">2</div>
-                        <div class="stat-player">
-                            <div class="stat-nick">NeonKnight</div>
-                            <div class="stat-hours">198 часов</div>
-                        </div>
-                        <div class="stat-kills">1623 убийств</div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-rank">3</div>
-                        <div class="stat-player">
-                            <div class="stat-nick">ViperStrike</div>
-                            <div class="stat-hours">187 часов</div>
-                        </div>
-                        <div class="stat-kills">1592 убийств</div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-rank">4</div>
-                        <div class="stat-player">
-                            <div class="stat-nick">PhantomEcho</div>
-                            <div class="stat-hours">165 часов</div>
-                        </div>
-                        <div class="stat-kills">1401 убийств</div>
-                    </div>
-                    <div class="stat-row">
-                        <div class="stat-rank">5</div>
-                        <div class="stat-player">
-                            <div class="stat-nick">SilentDawn</div>
-                            <div class="stat-hours">152 часов</div>
-                        </div>
-                        <div class="stat-kills">1198 убийств</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SHOP SECTION -->
-        <section id="shop" class="section">
-            <div class="shop-container">
-                <h2 class="section-title">🛍️ Магазин</h2>
-                <p class="section-subtitle">Получи уникальные привилегии и ресурсы</p>
-                
-                <div class="shop-tabs">
-                    <button class="tab-btn active" onclick="switchTab('privs')">Привилегии</button>
-                    <button class="tab-btn" onclick="switchTab('resources')">Ресурсы</button>
-                </div>
-
-                <div id="privs" class="shop-tab active">
-                    <div class="shop-grid">
-                        <div class="product-card">
-                            <div class="product-icon">👑</div>
-                            <div class="product-name">Premium</div>
-                            <div class="product-desc">Персональный цвет ника, +50% опыта, приватный чат</div>
-                            <div class="product-price">199 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">💎</div>
-                            <div class="product-name">Elite</div>
-                            <div class="product-desc">Все премиум привилегии, телепортация, +100% лута</div>
-                            <div class="product-price">499 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">⚡</div>
-                            <div class="product-name">Legendary</div>
-                            <div class="product-desc">Эксклюзивный статус, управление сервером, тег в чате</div>
-                            <div class="product-price">999 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">🔥</div>
-                            <div class="product-name">God Mode</div>
-                            <div class="product-desc">Все привилегии + спецсредства + приватный остров</div>
-                            <div class="product-price">1999 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="resources" class="shop-tab" style="display: none;">
-                    <div class="shop-grid">
-                        <div class="product-card">
-                            <div class="product-icon">🪨</div>
-                            <div class="product-name">Камень +1000</div>
-                            <div class="product-desc">1000 единиц камня для вашего базы</div>
-                            <div class="product-price">99 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">🌳</div>
-                            <div class="product-name">Дерево +1000</div>
-                            <div class="product-desc">1000 единиц дерева для строительства</div>
-                            <div class="product-price">99 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">⚙️</div>
-                            <div class="product-name">Метал +500</div>
-                            <div class="product-desc">500 единиц металла для крафта</div>
-                            <div class="product-price">149 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-
-                        <div class="product-card">
-                            <div class="product-icon">💰</div>
-                            <div class="product-name">Боны Набор</div>
-                            <div class="product-desc">Комбо всех ресурсов + скидка -20%</div>
-                            <div class="product-price">249 ₽</div>
-                            <button class="buy-btn">Купить</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- RULES SECTION -->
-        <section id="rules" class="section">
-            <div class="rules-container">
-                <h2 class="section-title">⚖️ Правила Серверов</h2>
-                <p class="section-subtitle" style="margin-bottom: 2rem;">Прочитай и соглась перед игрой</p>
-                
-                <div class="rules-list">
-                    <div class="rule-item">
-                        <span class="rule-number">1</span>
-                        <p class="rule-text"><strong>Запрещён читинг и использование багов</strong> — Любые попытки использовать читы, эксплойты или баги приведут к вечному бану без возмещения денег.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">2</span>
-                        <p class="rule-text"><strong>Уважение к другим игрокам</strong> — Оскорбления, троллинг и дискриминация запрещены. Администраторы имеют право на мут или бан.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">3</span>
-                        <p class="rule-text"><strong>Запрещены оскорбительные никнеймы</strong> — Если твой ник содержит оскорбления или ненормативную лексику, его нужно изменить.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">4</span>
-                        <p class="rule-text"><strong>Нельзя спамить и флудить</strong> — Чрезмерная активность в чате, спам сообщений или ссылок приведёт к муту.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">5</span>
-                        <p class="rule-text"><strong>Реклама других проектов запрещена</strong> — Р��скрытие IP других серверов или проектов приведёт к бану.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">6</span>
-                        <p class="rule-text"><strong>Торговля аккаунтами и услугами запрещена</strong> — Продажа аккаунтов, игровой валюты или услуг на реальные деньги не допускается.</p>
-                    </div>
-                    <div class="rule-item">
-                        <span class="rule-number">7</span>
-                        <p class="rule-text"><strong>Администраторы и модераторы имеют власть</strong> — Их решение финально. Апелляции можно подавать только через тикет поддержки.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SUPPORT SECTION -->
-        <section id="support" class="section">
-            <div class="support-container">
-                <h2 class="section-title">🎧 Техническая Поддержка</h2>
-                <p class="section-subtitle" style="margin-bottom: 2rem;">Свяжись с нами, если есть проблемы</p>
-                
-                <div class="support-form">
-                    <form onsubmit="handleSupport(event)">
-                        <div class="form-group">
-                            <label>Твой Ник в Игре</label>
-                            <input type="text" placeholder="ShadowHunter" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" placeholder="example@gmail.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Вид проблемы</label>
-                            <input type="text" placeholder="Например: не могу подключиться, пропали ресурсы" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Описание</label>
-                            <textarea placeholder="Подробно опиши проблему..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">📬 Отправить Заявку</button>
-                    </form>
                 </div>
             </div>
         </section>
@@ -1378,121 +626,34 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">
-            <div class="footer-section">
-                <h4>🌐 Сообщество</h4>
-                <a href="#" onclick="return false;">Discord сервер</a><br>
-                <a href="#" onclick="return false;">Telegram канал</a><br>
-                <a href="#" onclick="return false;">VK группа</a>
+            <div class="footer-links">
+                <a href="#">[ ССЫЛКА НА СОЦСЕТЬ 1 ]</a>
+                <a href="#">[ ССЫЛКА НА СОЦСЕТЬ 2 ]</a>
             </div>
-            <div class="footer-section">
-                <h4>📋 Документы</h4>
-                <a href="#" onclick="return false;">Политика конфиденциальности</a><br>
-                <a href="#" onclick="return false;">Пользовательское соглашение</a><br>
-                <a href="#" onclick="return false;">Правила серверов</a>
+            <div class="footer-legal">
+                <a href="#">[ ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ]</a>
+                <a href="#">[ ДОГОВОР ОФЕРТЫ ]</a>
             </div>
-            <div class="footer-section">
-                <h4>📞 Контакты</h4>
-                <p>Email: support@rustlabs.io</p>
-                <p>Discord: RustLabs Support</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>⚗️ RUST LABS — Независимый игровой проект | 🚫 Не связан с Facepunch Studios | © 2024</p>
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
-        // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const sectionName = link.dataset.section;
-                
-                // Remove active class from all links and sections
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                
-                // Add active class
-                link.classList.add('active');
-                document.getElementById(sectionName).classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        });
-
-        // Copy IP Function
-        function copyIP(ip = 'sl.rustlabs.io:28015') {
+        function copyIP() {
+            const ip = '[ IP:PORT ]';
             navigator.clipboard.writeText(ip).then(() => {
-                showNotification(`✅ IP скопирован: ${ip}`);
-                
-                // Animate online count
-                const onlineEl = document.getElementById('online-count');
-                const current = parseInt(onlineEl.textContent);
-                onlineEl.textContent = Math.min(current + 1, 500);
+                showNotification('✓ Скопировано');
             }).catch(() => {
-                showNotification('❌ Ошибка копирования');
+                showNotification('✗ Ошибка');
             });
         }
 
-        // Show notification
         function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
         }
-
-        // Shop tabs
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.shop-tab').forEach(tab => {
-                tab.style.display = 'none';
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName).style.display = 'block';
-            document.getElementById(tabName).classList.add('active');
-            
-            // Update button states
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
-        // Support form
-        function handleSupport(e) {
-            e.preventDefault();
-            showNotification('✅ Заявка отправлена! Ответим в течение 24 часов.');
-            e.target.reset();
-        }
-
-        // Animate online count on page load
-        window.addEventListener('load', () => {
-            // Random online count updates
-            setInterval(() => {
-                const onlineEl = document.getElementById('online-count');
-                const current = parseInt(onlineEl.textContent);
-                const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
-                const newValue = Math.max(100, Math.min(500, current + change));
-                onlineEl.textContent = newValue;
-            }, 3000);
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                if (this.dataset.section) return; // Skip nav links
-                e.preventDefault();
-            });
-        });
     </script>
 </body>
 </html>
