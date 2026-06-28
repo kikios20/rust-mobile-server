@@ -65,7 +65,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 8px 0;
         }
 
         .header-content {
@@ -74,18 +74,19 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            position: relative;
+            width: 32px;
+            height: 32px;
         }
 
         .logo-icon svg {
@@ -94,7 +95,7 @@
         }
 
         .logo-text {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -102,14 +103,14 @@
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             flex-wrap: nowrap;
         }
 
         nav a {
             color: var(--text-gray);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -123,19 +124,20 @@
 
         .header-buttons {
             display: flex;
-            gap: 12px;
+            gap: 6px;
+            flex-shrink: 0;
         }
 
         .btn-outline {
-            padding: 10px 20px;
+            padding: 6px 10px;
             background: transparent;
             border: 1px solid var(--primary-purple);
             border-radius: 6px;
             color: var(--text-white);
-            font-size: 13px;
+            font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -145,15 +147,15 @@
         }
 
         .btn-primary {
-            padding: 10px 20px;
+            padding: 6px 10px;
             background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light));
             border: none;
             border-radius: 6px;
             color: var(--text-white);
-            font-size: 13px;
+            font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
@@ -519,7 +521,7 @@
 
         /* SERVERS SECTION */
         .servers-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background: transparent;
             position: relative;
             overflow: hidden;
@@ -734,7 +736,7 @@
 
         /* FEATURES SECTION */
         .features-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background: transparent;
             position: relative;
             overflow: hidden;
@@ -943,7 +945,7 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            grid-template-columns: 1.5fr 1fr 2fr;
             gap: 40px;
             padding-bottom: 40px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -1621,21 +1623,9 @@
                     <div class="footer-links">
                         <a href="#hero">Главная</a>
                         <a href="#servers">Серверы</a>
-                        <a href="#">Магазин</a>
+                        <a href="shop.html">Магазин</a>
                         <a href="#">Правила</a>
                         <a href="#">О проекте</a>
-                        <a href="#">Контакты</a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>Информация</h4>
-                    <div class="footer-links">
-                        <a href="#">Как начать играть</a>
-                        <a href="#">Донат и услуги</a>
-                        <a href="#">Бонусы</a>
-                        <a href="#">Администрация</a>
-                        <a href="#">Вакансии</a>
                     </div>
                 </div>
                 
@@ -1644,6 +1634,7 @@
                     <div class="footer-links footer-links-purple">
                         <a href="mailto:support@rustchem.ru">support@rustchem.ru</a>
                         <a href="#">Наш Discord сервер</a>
+                        <a href="#">Контакты</a>
                     </div>
                     <div class="status-block">
                         <div class="status-info">
