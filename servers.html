@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Все серверы - RUSTCHEM</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -209,6 +209,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
+            padding-top: 50px;
         }
 
         .server-card:hover {
@@ -294,19 +295,20 @@
             top: 12px;
             left: 12px;
             padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(124, 58, 237, 0.5);
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
             color: var(--text-white);
-            z-index: 2;
+            z-index: 10;
         }
 
         .server-content {
             position: relative;
             padding: 20px;
             z-index: 2;
+            margin-top: 10px;
         }
 
         .server-name {
