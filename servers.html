@@ -209,7 +209,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
-            padding-top: 50px;
+            min-height: 220px;
         }
 
         .server-card:hover {
@@ -250,6 +250,7 @@
             background-size: cover;
             background-position: center;
             transition: transform 0.5s ease;
+            z-index: 1;
         }
 
         .server-card:hover .server-card-bg {
@@ -301,14 +302,17 @@
             font-size: 11px;
             font-weight: 600;
             color: var(--text-white);
-            z-index: 10;
+            z-index: 5;
         }
 
         .server-content {
-            position: relative;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 20px;
-            z-index: 2;
-            margin-top: 10px;
+            z-index: 5;
+            background: linear-gradient(to top, rgba(10, 10, 16, 0.95) 60%, transparent);
         }
 
         .server-name {

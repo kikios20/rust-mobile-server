@@ -516,8 +516,9 @@
         /* SERVERS SECTION */
         .servers-section {
             padding: 100px 0;
-            background: var(--bg-main);
+            background: linear-gradient(180deg, #0a0a10 0%, #0f0f1a 50%, #0a0a10 100%);
             position: relative;
+            overflow: hidden;
         }
 
         .servers-section::before {
@@ -632,6 +633,7 @@
             bottom: 0;
             background-size: cover;
             background-position: center;
+            z-index: 1;
         }
 
         .server-card-bg::after {
@@ -642,6 +644,7 @@
             right: 0;
             height: 60%;
             background: linear-gradient(to top, rgba(10, 10, 16, 0.95), transparent);
+            z-index: 1;
         }
 
         .server-card-1 .server-card-bg {
@@ -677,7 +680,6 @@
             right: 0;
             padding: 20px;
             z-index: 2;
-            margin-top: 50px;
         }
 
         .server-name {
@@ -742,8 +744,9 @@
         /* FEATURES SECTION */
         .features-section {
             padding: 100px 0;
-            background: linear-gradient(180deg, var(--bg-main), #0d0d18);
+            background: linear-gradient(180deg, #0a0a10 0%, #0d0d18 50%, #0a0a10 100%);
             position: relative;
+            overflow: hidden;
         }
 
         .features-section::before {
