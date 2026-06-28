@@ -32,12 +32,192 @@
             color: var(--text-white);
             line-height: 1.6;
             min-height: 100vh;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(to top, 
+                rgba(10, 10, 16, 0) 0%, 
+                rgba(10, 10, 16, 0.1) 15%, 
+                rgba(10, 10, 16, 0.2) 25%, 
+                rgba(10, 10, 16, 0.35) 40%, 
+                rgba(10, 10, 16, 0.5) 55%, 
+                rgba(10, 10, 16, 0.7) 70%, 
+                rgba(10, 10, 16, 0.85) 85%, 
+                rgba(10, 10, 16, 1) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        footer {
+            background: linear-gradient(to bottom, 
+                rgba(10, 10, 16, 0) 0%, 
+                rgba(10, 10, 16, 0.15) 15%, 
+                rgba(10, 10, 16, 0.3) 30%, 
+                rgba(10, 10, 16, 0.5) 50%, 
+                rgba(10, 10, 16, 0.75) 75%, 
+                #0B0B13 100%);
+            padding: 60px 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-brand {
+            max-width: 280px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .footer-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .footer-brand-desc {
+            color: var(--text-gray);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--text-white);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-purple-light);
+        }
+
+        .footer-links-purple a {
+            color: #A78BFA;
+        }
+
+        .footer-links-purple a:hover {
+            color: var(--primary-purple);
+        }
+
+        .status-block {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .status-info h5 {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .status-info p {
+            font-size: 13px;
+            color: var(--status-green);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--status-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--status-green);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .made-with span {
+            color: var(--primary-purple);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        main.container {
+            padding-top: 120px;
+            padding-bottom: 400px;
         }
 
         /* HEADER */
@@ -603,5 +783,87 @@
             </div>
         </div>
     </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">
+                            <svg viewBox="0 0 40 40" fill="none">
+                                <path d="M20 2L38 34H2L20 2Z" stroke="#7C3AED" stroke-width="2" fill="none"/>
+                                <path d="M20 14V26M16 22H24M15 30H25" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="20" cy="12" r="3" fill="#7C3AED" opacity="0.5"/>
+                            </svg>
+                        </div>
+                        <span class="footer-logo-text">RUSTCHEM</span>
+                    </div>
+                    <p class="footer-brand-desc">
+                        Проект игровых серверов Rust<br>
+                        с уникальной атмосферой<br>
+                        и лучшими условиями для игры.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Навигация</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Главная</a>
+                        <a href="#servers">Серверы</a>
+                        <a href="shop.html">Магазин</a>
+                        <a href="#">Правила</a>
+                        <a href="#">О проекте</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Информация</h4>
+                    <div class="footer-links">
+                        <a href="#">Как начать играть</a>
+                        <a href="#">Донат и услуги</a>
+                        <a href="#">Бонусы</a>
+                        <a href="#">Администрация</a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Поддержка</h4>
+                    <div class="footer-links footer-links-purple">
+                        <a href="mailto:support@rustchem.ru">support@rustchem.ru</a>
+                        <a href="#">Наш Discord сервер</a>
+                    </div>
+                    <div class="status-block">
+                        <div class="status-info">
+                            <h5>Статус серверов</h5>
+                            <p>Все сервера работают</p>
+                        </div>
+                        <div class="status-dot"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2024 RUSTCHEM. Все права защищены.</p>
+                <p class="made-with">Сделано с <span>💜</span></p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
