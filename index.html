@@ -65,13 +65,16 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 12px 20px;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .logo {
@@ -100,17 +103,19 @@
 
         nav {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            flex-wrap: nowrap;
         }
 
         nav a {
             color: var(--text-gray);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             transition: color 0.3s;
+            white-space: nowrap;
         }
 
         nav a:hover {
@@ -516,9 +521,11 @@
         /* SERVERS SECTION */
         .servers-section {
             padding: 100px 0;
-            background: linear-gradient(180deg, #0a0a10 0%, #0f0f1a 50%, #0a0a10 100%);
+            background: linear-gradient(135deg, #0f0a18 0%, #0a0a10 50%, #0f0f1a 100%);
             position: relative;
             overflow: hidden;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
         }
 
         .servers-section::before {
@@ -527,8 +534,10 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 200px;
-            background: linear-gradient(to bottom, rgba(124, 58, 237, 0.03), transparent);
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(124, 58, 237, 0.05) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -587,7 +596,7 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border-color);
-            aspect-ratio: 16/9;
+            min-height: 180px;
             transition: all 0.3s;
         }
 
@@ -617,7 +626,7 @@
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.3s;
-            z-index: 3;
+            z-index: 10;
             pointer-events: none;
         }
 
@@ -633,7 +642,7 @@
             bottom: 0;
             background-size: cover;
             background-position: center;
-            z-index: 1;
+            z-index: 2;
         }
 
         .server-card-bg::after {
@@ -642,9 +651,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(10, 10, 16, 0.95), transparent);
-            z-index: 1;
+            top: 0;
+            background: linear-gradient(to top, rgba(10, 10, 16, 0.98) 0%, rgba(10, 10, 16, 0.8) 40%, transparent 70%);
+            z-index: 3;
         }
 
         .server-card-1 .server-card-bg {
@@ -664,13 +673,13 @@
             top: 12px;
             left: 12px;
             padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(124, 58, 237, 0.5);
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
             color: var(--text-white);
-            z-index: 10;
+            z-index: 15;
         }
 
         .server-content {
@@ -678,40 +687,38 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 20px;
-            z-index: 2;
+            padding: 16px;
+            z-index: 12;
         }
 
         .server-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-white);
+            margin-bottom: 4px;
         }
 
         .server-details {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-gray);
-            margin-top: 4px;
+            margin-bottom: 8px;
         }
 
         .server-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .server-online {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--status-green);
             text-transform: uppercase;
         }
 
         .server-slots {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-white);
         }
@@ -744,9 +751,11 @@
         /* FEATURES SECTION */
         .features-section {
             padding: 100px 0;
-            background: linear-gradient(180deg, #0a0a10 0%, #0d0d18 50%, #0a0a10 100%);
+            background: linear-gradient(135deg, #0d0a18 0%, #0d0d18 50%, #0f0f1a 100%);
             position: relative;
             overflow: hidden;
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
         }
 
         .features-section::before {
@@ -755,19 +764,10 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 200px;
-            background: linear-gradient(to bottom, transparent, rgba(124, 58, 237, 0.02));
-            pointer-events: none;
-        }
-
-        .features-section::after {
-            content: '';
-            position: absolute;
             bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(to top, rgba(217, 119, 54, 0.02), transparent);
+            background: 
+                radial-gradient(ellipse at 30% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(217, 119, 54, 0.04) 0%, transparent 50%);
             pointer-events: none;
         }
 
