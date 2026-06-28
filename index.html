@@ -1688,16 +1688,6 @@
     </footer>
 
     <script>
-        // Auto-scroll to servers section on page load
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const serversSection = document.getElementById('servers');
-                if (serversSection) {
-                    serversSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 800);
-        });
-
         // Smooth scroll for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1709,56 +1699,77 @@
             });
         });
 
-        // Login Modal
-        const loginBtn = document.querySelector('.btn-outline');
-        const loginModal = document.getElementById('loginModal');
-        const closeLogin = document.getElementById('closeLogin');
-        const toRegister = document.getElementById('toRegister');
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Login Modal
+            const loginBtn = document.querySelector('.header-buttons .btn-outline');
+            const loginModal = document.getElementById('loginModal');
+            const closeLogin = document.getElementById('closeLogin');
+            const toRegister = document.getElementById('toRegister');
 
-        loginBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
-
-        closeLogin.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
-
-        loginModal.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
+            if (loginBtn && loginModal) {
+                loginBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginModal.style.display = 'flex';
+                });
             }
-        });
 
-        toRegister.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'none';
-            registerModal.style.display = 'flex';
-        });
-
-        // Register Modal
-        const registerBtn = document.querySelector('.header-buttons .btn-primary');
-        const registerModal = document.getElementById('registerModal');
-        const closeRegister = document.getElementById('closeRegister');
-        const toLogin = document.getElementById('toLogin');
-
-        registerBtn.addEventListener('click', () => {
-            registerModal.style.display = 'flex';
-        });
-
-        closeRegister.addEventListener('click', () => {
-            registerModal.style.display = 'none';
-        });
-
-        registerModal.addEventListener('click', (e) => {
-            if (e.target === registerModal) {
-                registerModal.style.display = 'none';
+            if (closeLogin) {
+                closeLogin.addEventListener('click', () => {
+                    loginModal.style.display = 'none';
+                });
             }
-        });
 
-        toLogin.addEventListener('click', (e) => {
-            e.preventDefault();
-            registerModal.style.display = 'none';
-            loginModal.style.display = 'flex';
+            if (loginModal) {
+                loginModal.addEventListener('click', (e) => {
+                    if (e.target === loginModal) {
+                        loginModal.style.display = 'none';
+                    }
+                });
+            }
+
+            if (toRegister) {
+                toRegister.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'flex';
+                });
+            }
+
+            // Register Modal
+            const registerBtn = document.querySelector('.header-buttons .btn-primary');
+            const registerModal = document.getElementById('registerModal');
+            const closeRegister = document.getElementById('closeRegister');
+            const toLogin = document.getElementById('toLogin');
+
+            if (registerBtn && registerModal) {
+                registerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    registerModal.style.display = 'flex';
+                });
+            }
+
+            if (closeRegister) {
+                closeRegister.addEventListener('click', () => {
+                    registerModal.style.display = 'none';
+                });
+            }
+
+            if (registerModal) {
+                registerModal.addEventListener('click', (e) => {
+                    if (e.target === registerModal) {
+                        registerModal.style.display = 'none';
+                    }
+                });
+            }
+
+            if (toLogin) {
+                toLogin.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    registerModal.style.display = 'none';
+                    loginModal.style.display = 'flex';
+                });
+            }
         });
     </script>
 
