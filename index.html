@@ -192,6 +192,18 @@
         .hero::after {
             content: '';
             position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(to top, rgba(10, 10, 16, 0) 0%, rgba(10, 10, 16, 0.3) 30%, rgba(10, 10, 16, 0.7) 60%, rgba(10, 10, 16, 1) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-gradient-overlay {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 50%;
@@ -1384,6 +1396,9 @@
             <div class="bg-crystal bg-crystal-9"></div>
             <div class="bg-crystal bg-crystal-10"></div>
         </div>
+
+        <!-- Gradient overlay for left side -->
+        <div class="hero-gradient-overlay"></div>
 
         <div class="particles">
             <div class="particle" style="top: 20%; left: 30%; animation-delay: 0s;"></div>
