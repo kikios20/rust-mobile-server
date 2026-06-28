@@ -209,7 +209,8 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
-            min-height: 220px;
+            min-height: 200px;
+            background: linear-gradient(135deg, #0f0a18 0%, #0a0a10 100%);
         }
 
         .server-card:hover {
@@ -250,7 +251,7 @@
             background-size: cover;
             background-position: center;
             transition: transform 0.5s ease;
-            z-index: 1;
+            z-index: 2;
         }
 
         .server-card:hover .server-card-bg {
@@ -263,8 +264,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(10, 10, 16, 0.95), transparent);
+            top: 0;
+            background: linear-gradient(to top, rgba(10, 10, 16, 0.95) 0%, rgba(10, 10, 16, 0.7) 50%, transparent 80%);
+            z-index: 3;
         }
 
         .server-card-1 .server-card-bg {
@@ -296,13 +298,13 @@
             top: 12px;
             left: 12px;
             padding: 6px 12px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(124, 58, 237, 0.5);
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
             color: var(--text-white);
-            z-index: 5;
+            z-index: 10;
         }
 
         .server-content {
@@ -310,30 +312,27 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 20px;
-            z-index: 5;
-            background: linear-gradient(to top, rgba(10, 10, 16, 0.95) 60%, transparent);
+            padding: 16px;
+            z-index: 10;
         }
 
         .server-name {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-white);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .server-details {
-            font-size: 13px;
+            font-size: 11px;
             color: var(--text-gray);
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
         .server-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .server-online {
